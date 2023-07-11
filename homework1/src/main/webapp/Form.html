@@ -1,0 +1,127 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Student Survey Form</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+  <header>
+  <div id="title"><h1>Student Survey Form</h1></div>
+    </header>
+
+<form id="survey-form">
+
+  <div id="description"> Let us know.....</div><br>
+
+  <fieldset class="fieldset">
+
+    <div class="sub-group">
+      <label class="left" for="input">*First Name:</label>
+    <input type="text" name="firstName" class="right input-field" placeholder="John" required>
+    </div>
+    <div class="sub-group">
+      <label class="left" for="input">*Last Name:</label>
+    <input type="text" name="lastName" class="right input-field" placeholder="Smith" required>
+    </div>
+    <div class="sub-group">
+      <label class="left" for="input">*Street Address:</label>
+    <input type="text" name="streetAddress" class="right input-field" placeholder="Street Address" required>
+    </div>
+    <div class="sub-group">
+      <label class="left" for="input">*City:</label>
+    <input type="text" name="city" class="right input-field" placeholder="City" required>
+    </div>
+    <div class="sub-group">
+      <label class="left" for="input">*State:</label>
+    <input type="text" name="state" class="right input-field" placeholder="State" required>
+    </div>
+    <div class="sub-group">
+      <label class="left" for="input">*ZIP:</label>
+    <input type="text" name="zip" class="right input-field" placeholder="22030" required>
+    </div>
+    <div class="sub-group">
+      <label class="left" id="phone-label" for="phone">*Telephone Number:</label>
+      <input type="text" placeholder="TelePhone Number" class="right input-field" id="phone">
+    </div>
+    <div class="sub-group">
+      <label class="left" id="email-label" for="email">*Email:</label>
+    <input type="email" name="Email-address" class="right input-field" placeholder="email address" id="email" required>
+    </div>
+    <div class="sub-group">
+      <label class="left" for="date">*Date of Survey:</label>
+    <input type="date" name="date" class="right input-field" placeholder="date of survey" id="date" required>
+    </div>
+    </fieldset>
+
+  <fieldset class="fieldset">
+    <div class="sub-group">
+      <label class="left">*What do you like most about the Campus?</label>
+
+      <ul style="list-style: none;" class="right">
+
+        <li class="checkbox"><label><input type="checkbox" name="students" value="Students" >Students</label></li>
+        <li class="checkbox"><label><input type="checkbox" name="students" value="Location">Location</label></li>
+        <li class="checkbox"><label><input type="checkbox" name="students" value="Campus" >Campus</label></li>
+        <li class="checkbox"><label><input type="checkbox" name="students" value="Atmosphere" >Atmosphere</label></li>
+        <li class="checkbox"><label><input type="checkbox" name="students" value="Dorm Rooms" >Dorm Rooms</label></li>
+        <li class="checkbox"><label><input type="checkbox" name="students" value="Sports" >Sports</label></li>
+      </ul>
+    </div>
+  </fieldset>
+  
+  <fieldset class="fieldset">
+    <div class="sub-group">
+      <label class="left" id="left-radio">*What interested you in the University?</label>
+      <ul style="list-style: none" class="right">
+          <li class="radio"><label><input name="radio-buttons" value="1" type="radio" class="recommendation">Friends</label></li>
+          <li class="radio"><label><input name="radio-buttons" value="2" type="radio" class="recommendation">Television</label></li>
+          <li class="radio"><label><input name="radio-buttons" value="3" type="radio" class="recommendation">Internet</label></li>
+          <li class="radio"><label><input name="radio-buttons" value="3" type="radio" class="recommendation">Other</label></li>
+      </ul>
+    </div>
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <div class="sub-group">
+      <label class="left" for="dropdown">*What is the likelihood of you recommending this school to other prospective students?</label>
+      <select class="right dropdown" id="dropdown" name="dropdown">
+        <option selected disabled>Select Likelihood</option>
+        <option value="very-likely">Very Likely</option>
+        <option value="likely">Likely</option>
+        <option value="unlikely">Unlikely</option>
+      </select>
+    </div>
+
+    <div class="raffle-text sub-group"> 
+      <label class="left"> *Raffle Number (Enter at least ten comma separated numbers ranging from 1 through 100.)</label><br> <input type="text" name="number" placeholder="Numbers from 1-100" class="right input-field">
+       <p id="note"> Note - This Raffle Number will be used to announce where you may win a free movie ticket.</p>
+   </div>
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <h2>Any comments or suggestions?</h2>
+    <div class="commentbox">
+      <textarea rows="4"  placeholder="Enter your comment here..."></textarea>
+      <br></br>
+      <button class="button" id="submit" type="submit">Submit</button>
+      <button class="button" id="submit" type="reset">Cancel</button>
+    </div>
+  </fieldset>
+
+</form>
+</body>
+</html>
