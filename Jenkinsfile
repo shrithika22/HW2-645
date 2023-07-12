@@ -1,36 +1,73 @@
-pipeline{
-	agent any
-	environment {
-		DOCKERHUB_PASS = 'Shrithika'
-	}
-	stages{
-		stage("Building the Student Survey Image"){
-			steps{
-				script{
-					checkout scm
-					sh 'rm -rf *.war'
-					sh 'jar -cvf homework1.war -C src/main/webapp .'
-					sh 'echo ${BUILD_TIMESTAMP}'
-					sh 'docker login -u shrithika -p ${DOCKERHUB_PASS}'
-					def customImage = docker.build("shrithika/homework2:0.0.1:${BUILD_TIMESTAMP}")
-				}
-			}
-		}
-		stage("Pushing image to docker"){
-			steps{
-				script{
-					sh 'docker push shrithika/homework2:0.0.1:${BUILD_TIMESTAMP}'
-				}
-			}
-		}
+pipeline {
+    environment {
+        registry = "shrithika/swe645homework2"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
+    agent any
+    
+    stages {
+        stage('Cloning Git') {
+            steps{
+                git 'https://github.com/shrithika22/HW2-645.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                script {
+
+                  dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+
+        stage('Deploy Image') {
+            steps{
+                script{
+                    docker.withRegistry('',registryCredential){
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Remove Unused docker image') {
+          steps{
+            sh "docker rmi $registry:$BUILD_NUMBER"
+          }
+        }
 		
-		stage("Deploying to rancher as single pod"){
-			steps{
-				script{
-				
-					sh 'kubectl set image deployment/homework2-pipeline homework2-pipeline=shrithika/homework2:0.0.1:${BUILD_TIMESTAMP} -n jenkins-pipeline'
-				}
-			}
-		}
-	}
-}
+		stage('redeploy') {
+            steps{
+               
+               sh'''
+               #!/bin/bash
+                docker login
+                docker pull shrithika/swe645homework2:$BUILD_NUMBER
+                sudo -s source /etc/environment
+                kubectl --kubeconfig /home/ubuntu/.kube/config set image deployment swe645homework2 swe645homework2=docker.io/shrithika/swe645homework2:$BUILD_NUMBER
+            '''
+            }
+        }
+
+        stage('Remove Unused docker image') {
+          steps{
+            sh "docker rmi $registryRestful:$BUILD_NUMBER"
+            sh "docker rmi $registryApp:$BUILD_NUMBER"
+          }
+        }
+		
+    }
