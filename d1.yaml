@@ -4,11 +4,11 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
     field.cattle.io/publicEndpoints: >-
-      [{"addresses":["172.31.3.170"],"port":31463,"protocol":"TCP","serviceName":"default:hw2-cluster-deployement-nodeport","allNodes":true}]
-  creationTimestamp: '2023-07-12T02:13:32Z'
+      [{"addresses":["172.31.15.56"],"port":30000,"protocol":"TCP","serviceName":"default:d1-nodeport","allNodes":true}]
+  creationTimestamp: '2023-07-12T04:08:35Z'
   generation: 2
   labels:
-    workload.user.cattle.io/workloadselector: apps.deployment-default-hw2-cluster-deployement
+    workload.user.cattle.io/workloadselector: apps.deployment-default-d1
   managedFields:
     - apiVersion: apps/v1
       fieldsType: FieldsV1
@@ -67,7 +67,7 @@ metadata:
               f:terminationGracePeriodSeconds: {}
       manager: agent
       operation: Update
-      time: '2023-07-12T02:13:33Z'
+      time: '2023-07-12T04:08:35Z'
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -102,18 +102,18 @@ metadata:
       manager: kube-controller-manager
       operation: Update
       subresource: status
-      time: '2023-07-12T02:13:55Z'
-  name: hw2-cluster-deployement
+      time: '2023-07-12T04:14:28Z'
+  name: d1
   namespace: default
-  resourceVersion: '4586'
-  uid: 534fadc6-4715-465b-a42d-2c13f62163ce
+  resourceVersion: '6176'
+  uid: ef9624aa-a666-4d77-838b-b403178ca7a9
 spec:
   progressDeadlineSeconds: 600
   replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: apps.deployment-default-hw2-cluster-deployement
+      workload.user.cattle.io/workloadselector: apps.deployment-default-d1
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -123,7 +123,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        workload.user.cattle.io/workloadselector: apps.deployment-default-hw2-cluster-deployement
+        workload.user.cattle.io/workloadselector: apps.deployment-default-d1
       namespace: default
     spec:
       affinity: {}
@@ -151,22 +151,19 @@ spec:
 status:
   availableReplicas: 3
   conditions:
-    - lastTransitionTime: '2023-07-12T02:13:55Z'
-      lastUpdateTime: '2023-07-12T02:13:55Z'
+    - lastTransitionTime: '2023-07-12T04:08:35Z'
+      lastUpdateTime: '2023-07-12T04:09:01Z'
+      message: ReplicaSet "d1-76d9bb867c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: 'True'
+      type: Progressing
+    - lastTransitionTime: '2023-07-12T04:14:28Z'
+      lastUpdateTime: '2023-07-12T04:14:28Z'
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: 'True'
       type: Available
-    - lastTransitionTime: '2023-07-12T02:13:32Z'
-      lastUpdateTime: '2023-07-12T02:13:55Z'
-      message: >-
-        ReplicaSet "hw2-cluster-deployement-5c9476b5dc" has successfully
-        progressed.
-      reason: NewReplicaSetAvailable
-      status: 'True'
-      type: Progressing
   observedGeneration: 2
   readyReplicas: 3
   replicas: 3
   updatedReplicas: 3
-
