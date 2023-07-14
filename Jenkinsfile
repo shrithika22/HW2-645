@@ -9,7 +9,7 @@ pipeline{
 				script{
 					checkout scm
 					sh 'rm -rf *.war'
-					sh 'jar -cvf homework1.war -C src/main/webapp .'
+					sh 'jar -cvf homework1.war -C homework1/src/main/webapp .'
 					sh 'docker login -u shrithika -p ${DOCKERHUB_PASS}'
 					sh 'docker build -t shrithika/homework2:0.0.1 .'
 				}
