@@ -1,67 +1,34 @@
-pipeline {
+pipeline{
+	agent any
 	environment {
-        	registry = "shrithika/swe645homework2"
-        	registryCredential = 'dockerhub'
-        	dockerImage = ''
-    	}
-    	agent any
-    
-
-	stage('Build') {
-	    steps {
-		echo 'Building..'
-		script {
-	
-		  dockerImage = docker.build registry + ":$BUILD_NUMBER"
+		DOCKERHUB_PASS = "Shrithika"
+	}
+	stages{
+		stage("Generating Build SWE645 student survey"){
+			steps{
+				script{
+					checkout scm
+					sh 'rm -rf *.war'
+					sh 'jar -cvf homework1.war -C src/main/webapp .'
+					sh 'docker login -u shrithika -p ${DOCKERHUB_PASS}'
+					sh 'docker build -t shrithika/homework2:0.0.1 .'
+				}
+			}
 		}
-	
-	    }
-	}
-	stage('Test') {
-	    steps {
-		echo 'Testing..'
-	    }
-	}
-	stage('Deploy') {
-	    steps {
-		echo 'Deploying....'
-	    }
-	}
-	
-	stage('Deploy Image') {
-	    steps{
-		script{
-		    docker.withRegistry('',registryCredential){
-			dockerImage.push()
-		    }
+		stage("Pushing image to docker"){
+			steps{
+				script{
+					sh 'docker push shrithika/homework2:0.0.1'
+				}
+			}
 		}
-	    }
+		stage("Deploying to rancher"){
+			steps{
+				script{
+				
+					sh 'kubectl rollout restart deploy d1 -n 645hw2'
+				}
+			}
+		}
 	}
-	
-	stage('Remove Unused docker image') {
-	  steps{
-	    sh "docker rmi $registry:$BUILD_NUMBER"
-	  }
-	}
-		
-		stage('redeploy') {
-	    steps{
-	       
-	       sh'''
-	       #!/bin/bash
-		docker login
-		docker pull shrithika/swe645homework2:$BUILD_NUMBER
-		sudo -s source /etc/environment
-		kubectl --kubeconfig /home/ubuntu/.kube/config set image deployment swe645homework2 swe645homework2=docker.io/shrithika/swe645homework2:$BUILD_NUMBER
-	    '''
-	    }
-	}
-	
-	stage('Remove Unused docker image') {
-	  steps{
-	    sh "docker rmi $registryRestful:$BUILD_NUMBER"
-	    sh "docker rmi $registryApp:$BUILD_NUMBER"
-	  }
-	}
-		
 }
