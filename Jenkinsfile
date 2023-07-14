@@ -10,7 +10,7 @@ pipeline{
 					checkout scm
 					sh 'rm -rf *.war'
 					sh 'jar -cvf homework1.war -C homework1/src/main/webapp .'
-					sh  'echo ${DOCKERHUB_PASS} | docker login -u shrithika --password-stdin'
+					sh  "echo '${DOCKERHUB_PASS}' | docker login -u shrithika --password-stdin"
 					sh 'docker build -t shrithika/homework2:0.0.1 .'
 				}
 			}
