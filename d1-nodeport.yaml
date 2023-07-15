@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["44.201.156.54"],"port":32681,"protocol":"TCP","serviceName":"645hw2:d1-nodeport","allNodes":true}]
+    field.cattle.io/targetWorkloadIds: '["645hw2/d1"]'
+    management.cattle.io/ui-managed: 'true'
+  creationTimestamp: '2023-07-14T05:49:37Z'
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:field.cattle.io/publicEndpoints: {}
+            f:field.cattle.io/targetWorkloadIds: {}
+            f:management.cattle.io/ui-managed: {}
+          f:ownerReferences:
+            .: {}
+            k:{"uid":"3dae707d-a519-47a0-b3bd-fd1a404c7139"}: {}
+        f:spec:
+          f:externalTrafficPolicy: {}
+          f:internalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":8080,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: agent
+      operation: Update
+      time: '2023-07-14T05:49:37Z'
+  name: d1-nodeport
+  namespace: 645hw2
+  ownerReferences:
+    - apiVersion: apps/v1
+      controller: true
+      kind: Deployment
+      name: d1
+      uid: 3dae707d-a519-47a0-b3bd-fd1a404c7139
+  resourceVersion: '6907'
+  uid: b78e8c1c-71f4-4e41-ab81-ce74ae6bb815
+spec:
+  clusterIP: 10.43.32.98
+  clusterIPs:
+    - 10.43.32.98
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: nodeport
+      nodePort: 32681
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-645hw2-d1
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
